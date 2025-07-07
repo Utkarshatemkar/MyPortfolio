@@ -1,0 +1,813 @@
+<!-- Full code with interactive effect on Education section scroll + fade-in effect on Hero name -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Utkarsha Temkar | Java Developer Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+
+        .btn {
+            padding: 12px 28px;
+            font-size: 1rem;
+            background-color: #00bcd4;
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #0097a7;
+        }
+
+        .hero {
+            height: 100vh;
+            background: linear-gradient(to right, #0f0f0f, #1a1a1a);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1100px;
+            width: 100%;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1.2s ease, transform 1.2s ease;
+        }
+
+        .hero-content.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hero-text {
+            flex: 1;
+            padding-right: 30px;
+        }
+
+        .hero-text h1 {
+            font-size: 3rem;
+            color: #ffffff;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .tagline {
+            font-size: 1.4rem;
+            color: #00bcd4;
+            margin-bottom: 10px;
+        }
+
+        .subtext {
+            font-size: 1rem;
+            color: #ccc;
+            margin-bottom: 30px;
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-image img {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            border: 4px solid #00bcd4;
+            object-fit: cover;
+            box-shadow: 0 0 20px rgba(0, 188, 212, 0.3);
+        }
+
+        #about {
+            background-color: #1a1a1a;
+            padding: 80px 20px;
+        }
+
+        .about-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .about-frame {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .about-collage {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 0 auto 50px;
+        }
+
+        .about-collage .img {
+            position: absolute;
+            border-radius: 12px;
+            object-fit: cover;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: transform 0.4s ease;
+        }
+
+        /* Position each image uniquely */
+        .img1 {
+            top: 0;
+            left: 0;
+            width: 140px;
+            height: 140px;
+            z-index: 3;
+        }
+
+        .img2 {
+            top: 10px;
+            left: 100px;
+            width: 100px;
+            height: 120px;
+            z-index: 2;
+        }
+
+        .img3 {
+            top: 120px;
+            left: 60px;
+            width: 80px;
+            height: 80px;
+            z-index: 4;
+        }
+
+        .img4 {
+            top: 80px;
+            left: 160px;
+            width: 90px;
+            height: 90px;
+            z-index: 1;
+        }
+
+        .img5 {
+            top: 160px;
+            left: 0;
+            width: 100px;
+            height: 110px;
+            z-index: 2;
+        }
+
+        .img6 {
+            top: 180px;
+            left: 110px;
+            width: 80px;
+            height: 80px;
+            z-index: 3;
+        }
+
+        .img7 {
+            top: 60px;
+            left: 200px;
+            width: 90px;
+            height: 100px;
+            z-index: 5;
+        }
+
+        /* Optional hover pop effect */
+        .about-collage .img:hover {
+            transform: scale(1.1);
+            z-index: 10;
+        }
+
+
+        .about-text {
+            flex: 2;
+            min-width: 300px;
+        }
+
+        .about-text h2 {
+            color: #00bcd4;
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+        }
+
+        .about-text p {
+            font-size: 1.05rem;
+            color: #ddd;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+        #education {
+            background: linear-gradient(to right, #1a1a1a, #222);
+            padding: 80px 20px;
+        }
+
+        .education-container {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .education-title {
+            color: #00bcd4;
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .edu-timeline {
+            position: relative;
+            margin: 0 auto;
+            padding-left: 60px;
+            border-left: 3px solid #00bcd4;
+        }
+
+        .edu-item {
+            margin-bottom: 40px;
+            position: relative;
+            padding-left: 20px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .edu-item::before {
+            content: "";
+            position: absolute;
+            left: -28px;
+            top: 5px;
+            width: 20px;
+            height: 20px;
+            background-color: #00bcd4;
+            border-radius: 50%;
+            box-shadow: 0 0 0 5px rgba(0, 188, 212, 0.2);
+        }
+
+        .edu-item h3 {
+            color: #fff;
+            font-size: 1.3rem;
+        }
+
+        .edu-item p {
+            color: #ccc;
+            margin: 5px 0;
+        }
+
+        .edu-item span {
+            color: #aaa;
+            font-size: 0.95rem;
+        }
+
+        .edu-item.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+
+        .btn {
+            padding: 12px 28px;
+            font-size: 1rem;
+            background-color: #00bcd4;
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #0097a7;
+        }
+
+        .hero {
+            height: 100vh;
+            background: linear-gradient(to right, #0f0f0f, #1a1a1a);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1100px;
+            width: 100%;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1.2s ease, transform 1.2s ease;
+        }
+
+        .hero-content.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hero-text {
+            flex: 1;
+            padding-right: 30px;
+        }
+
+        .hero-text h1 {
+            font-size: 3rem;
+            color: #ffffff;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .tagline {
+            font-size: 1.4rem;
+            color: #00bcd4;
+            margin-bottom: 10px;
+        }
+
+        .subtext {
+            font-size: 1rem;
+            color: #ccc;
+            margin-bottom: 30px;
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-image img {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            border: 4px solid #00bcd4;
+            object-fit: cover;
+            box-shadow: 0 0 20px rgba(0, 188, 212, 0.3);
+        }
+
+
+        #education {
+            background: linear-gradient(to right, #1a1a1a, #222);
+            padding: 80px 20px;
+        }
+
+        .education-container {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .education-title {
+            color: #00bcd4;
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .edu-timeline {
+            position: relative;
+            margin: 0 auto;
+            padding-left: 60px;
+            border-left: 3px solid #00bcd4;
+        }
+
+        .edu-item {
+            margin-bottom: 40px;
+            position: relative;
+            padding-left: 20px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .edu-item::before {
+            content: "";
+            position: absolute;
+            left: -28px;
+            top: 5px;
+            width: 20px;
+            height: 20px;
+            background-color: #00bcd4;
+            border-radius: 50%;
+            box-shadow: 0 0 0 5px rgba(0, 188, 212, 0.2);
+        }
+
+        .edu-item h3 {
+            color: #fff;
+            font-size: 1.3rem;
+        }
+
+        .edu-item p {
+            color: #ccc;
+            margin: 5px 0;
+        }
+
+        .edu-item span {
+            color: #aaa;
+            font-size: 0.95rem;
+        }
+
+        .edu-item.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        #experience,
+        #projects {
+            padding: 80px 20px;
+            background-color: #181818;
+        }
+
+        .experience-container,
+        .projects-container {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .experience-title,
+        .projects-title {
+            color: #00bcd4;
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .exp-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .proj-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .exp-card,
+        .proj-card {
+            background-color: #222;
+            padding: 20px;
+            border-left: 4px solid #00bcd4;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .exp-card:hover,
+        .proj-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .exp-card h3,
+        .proj-card h3 {
+            color: #00bcd4;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .exp-card p,
+        .proj-card p {
+            color: #ccc;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .proj-card ul {
+            margin-top: 10px;
+            padding-left: 20px;
+            color: #bbb;
+            font-size: 0.9rem;
+        }
+
+        .proj-card a {
+            color: #00bcd4;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .contact-section {
+            padding: 80px 20px;
+            background: #0f172a;
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .section-title {
+            font-size: 36px;
+            text-align: center;
+            margin-bottom: 10px;
+            animation: fadeInDown 1s ease;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #94a3b8;
+        }
+
+        .contact-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .contact-info {
+            flex: 1;
+            min-width: 250px;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .contact-info a {
+            color: #38bdf8;
+            text-decoration: none;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        .contact-form {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            background: #1e293b;
+            color: #fff;
+            resize: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            background: #334155;
+            outline: none;
+        }
+
+        .contact-form button {
+            background: #38bdf8;
+            color: #0f172a;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .contact-form button:hover {
+            background: #0ea5e9;
+        }
+
+        .social-icons a {
+            display: inline-block;
+            margin-top: 10px;
+            margin-right: 15px;
+            color: #38bdf8;
+            font-weight: 600;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: #0ea5e9;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .contact-content {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <section id="home" class="hero">
+
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Utkarsha Temkar</h1>
+                <p class="tagline">Java Developer | Web Enthusiast | Artist</p>
+                <p class="subtext">Empowering ideas through responsive design and structured development.</p>
+                <a href="#about" class="btn">Explore My Work</a>
+            </div>
+            <div class="hero-image">
+                <img src="images/Myprofile.jpg" alt="Utkarsha Temkar Profile" alt="Utkarsha Temkar Profile" />
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="about-container">
+            <div class="about-frame">
+                <!-- Collage on Left -->
+                <div class="about-collage">
+                    <img src="images/projectpic.jpg" alt="Project Pic" class="img img1" />
+                    <img src="images/trophy.jpg" alt="Trophy" class="img img2" />
+                    <img src="images/presentation.jpg" alt="Presentation" class="img img3" />
+                    <img src="images/sumago.jpg" alt="Sumago" class="img img4" />
+                    <img src="images/art2.jpg" alt="Art 2" class="img img5" />
+                    <img src="images/sumagocertificate.jpg" alt="Certificate" class="img img6" />
+                    <img src="images/art.jpg" alt="Art" class="img img7" />
+                </div>
+
+
+                <!-- Text on Right -->
+                <div class="about-text">
+                    <h2>About Me</h2>
+                    <p>
+                        I am a passionate and driven tech enthusiast aiming to secure a challenging role in a dynamic,
+                        growth-oriented organization. With a focus on Java and Web Development, I strive to contribute
+                        my technical expertise to innovative and impactful projects. I thrive in collaborative
+                        environments that foster creativity, continuous learning, and professional growth.
+                    </p>
+                    <a href="assets/Utkarsha_Temkar_Resume.pdf" class="btn" download>Download Resume</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Education Section -->
+    <section id="education">
+        <div class="education-container">
+            <h2 class="education-title">Education</h2>
+            <div class="edu-timeline">
+                <div class="edu-item">
+                    <h3>B.E. – Electronics and Telecommunication</h3>
+                    <p>Government College of Engineering and Research, Avasari Kh</p>
+                    <span>2021 – 2025 | CGPA: 7.81 (69.51%)</span>
+                </div>
+                <div class="edu-item">
+                    <h3>HSC – Science</h3>
+                    <p>Mahatma Gandhi Vidyalaya & Jr. College, Manchar</p>
+                    <span>2021 | 82.17%</span>
+                </div>
+                <div class="edu-item">
+                    <h3>SSC</h3>
+                    <p>Shri Bhairavnath Vidyalaya, Avasari Kh</p>
+                    <span>2019 | 84.60%</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Experience Section -->
+    <section id="experience">
+        <div class="experience-container">
+            <h2 class="experience-title">Experience</h2>
+            <div class="exp-grid">
+                <div class="exp-card">
+                    <h3>Full Stack Development using React – Sumago Infotech</h3>
+                    <p>Created the front-end for a Hospital Management System. Designed responsive and user-friendly
+                        UI using HTML, CSS, and JS.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="projects-container">
+            <h2 class="projects-title">Projects</h2>
+            <div class="proj-grid">
+                <div class="proj-card">
+                    <h3>Hospital Management System</h3>
+                    <p>A front-end project developed during internship to manage patient and staff data with clean
+                        UI components.</p>
+                    <ul>
+                        <li>Login and registration pages for doctors and patients</li>
+                        <li>Dashboard with department and staff UI panels</li>
+                        <li>Clean responsive design using HTML, CSS & JavaScript</li>
+                        <li>Role-based navigation for users</li>
+                    </ul>
+                    <a href="#" target="_blank">View Project</a>
+                </div>
+                <div class="proj-card">
+                    <h3>Smart Parking System</h3>
+                    <p>IoT-based parking project combining hardware and web technology for intelligent slot
+                        management.</p>
+                    <ul>
+                        <li>Used Arduino Uno and LCD display to show available slots</li>
+                        <li>Developed website for users to reserve parking slots online</li>
+                        <li>Displayed real-time slot availability on site</li>
+                        <li>Integrated user billing based on entry and exit timestamps</li>
+                    </ul>
+                    <a href="#" target="_blank">View Project</a>
+                </div>
+                <div class="proj-card">
+                    <h3>3D Neuron Model</h3>
+                    <p>Artistic model of a neuron made for science exhibition. Won 1st prize in design category.</p>
+                </div>
+                <div class="proj-card">
+                    <h3>Event Set Designs</h3>
+                    <p>Designed visual setups and decoration themes for various college events.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2 class="section-title">Contact Me</h2>
+            <p class="section-subtitle">Let’s get in touch! I’d love to hear from you.</p>
+
+            <div class="contact-content">
+                <!-- Contact Info -->
+                <div class="contact-info">
+                    <p><strong>Email:</strong> <a href="mailto:temkarutkarsha@gmail.com">temkarutkarsha@gmail.com</a>
+                    </p>
+                    <p><strong>Phone:</strong> <a href="tel:+918010763727">+91 80107 63727</a></p>
+                    <p><strong>Address:</strong> Pune, Maharashtra, India</p>
+
+                    <div class="social-icons">
+                        <a href="https://www.hackerrank.com/profile/temkarutkarsha" target="_blank"
+                            rel="noopener noreferrer">HackerRank</a>
+                        <a href="https://github.com/Utkarshatemkar" target="_blank" rel="noopener noreferrer">GitHub</a>
+                        <a href="https://www.linkedin.com/in/utkarsha-temkar-638b83284/" target="_blank"
+                            rel="noopener noreferrer">LinkedIn</a>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <form class="contact-form" id="contactForm">
+                    <input type="text" name="name" placeholder="Your Name" required />
+                    <input type="email" name="email" placeholder="Your Email" required />
+                    <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+                    <button type="submit">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+
+    <script>
+        // Hero fade-in
+        window.addEventListener('load', () => {
+            document.querySelector('.hero-content').classList.add('visible');
+        });
+
+        // Education scroll reveal
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.2 });
+
+        document.querySelectorAll('.edu-item').forEach(item => {
+            observer.observe(item);
+        });
+
+        window.addEventListener('load', () => {
+            document.querySelector('.hero-content').classList.add('visible');
+        });
+
+        document.getElementById("contactForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+            alert("Thank you! Your message has been sent.");
+            this.reset();
+        });
+
+    </script>
+
+
+</body>
+
+</html>
